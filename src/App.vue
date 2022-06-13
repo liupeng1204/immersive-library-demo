@@ -91,7 +91,6 @@ amount of participants: ${this.amountOfParticipants}`
 
       this.library.subscribeToUserJoined(this.onUserJoined);
       this.library.subscribeToUserLeave(this.onUserLeave);
-      this.library.subscribeToUsersUpdate(this.onUsersUpdate);
       this.library.subscribeToAmountOfParticipants(this.onAmountOfParticipants);
       this.library.subscribeToHostChange(this.onHostChange);
       this.library.subscribeToRealtimeState(this.onRealtimeState);
@@ -113,13 +112,10 @@ amount of participants: ${this.amountOfParticipants}`
       })
     },
     onUserJoined(user) {
-      this.addMessageToLog(`User joined: ${user.customProperties.name} ${user.customProperties.userId}`)
+      this.addMessageToLog(`User joined: ${user.name} ${user.userId}`)
     },
     onUserLeave(user) {
-      this.addMessageToLog(`User left: ${user.customProperties.name} ${user.customProperties.userId}`)
-    },
-    onUsersUpdate() {
-
+      this.addMessageToLog(`User left: ${user.name} ${user.userId}`)
     },
     onAmountOfParticipants(amountOfParticipants) {
       this.amountOfParticipants = amountOfParticipants
@@ -133,7 +129,7 @@ amount of participants: ${this.amountOfParticipants}`
       this.addMessageToLog(`State changed to: ${state} - ${reason}`)
     },
     onRoomInfoUpdated(roomInfo) {
-      this.addMessageToLog(`Room info updated: ${JSON.stringify(roomInfo._customProperties, null, '  ')}`)
+      this.addMessageToLog(`Room info updated: ${JSON.stringify(roomInfo, null, '  ')}`)
     },
   }
 }
