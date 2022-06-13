@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ImmersiveLibrary from '@superviz/immersive-library'
+import ImmersiveLibrary from '../../immersive-monorepo/packages/library'
 
 export default {
   data: () => ({
@@ -93,7 +93,7 @@ amount of participants: ${this.amountOfParticipants}`
       this.library.subscribeToUserLeave(this.onUserLeave);
       this.library.subscribeToAmountOfParticipants(this.onAmountOfParticipants);
       this.library.subscribeToHostChange(this.onHostChange);
-      this.library.subscribeToRealtimeState(this.onRealtimeState);
+      this.library.subscribeToStateUpdate(this.onStateChange);
       this.library.subscribeToRoomInfoUpdated(this.onRoomInfoUpdated);
     },
     enterRoom() {
@@ -123,7 +123,7 @@ amount of participants: ${this.amountOfParticipants}`
     onHostChange({ newHostUserId, oldHostUserId }) {
       this.currentHostUserId = newHostUserId
     },
-    onRealtimeState(state, reason) {
+    onStateChange(state, reason) {
       this.currentState = state
       this.currentStateReason = reason ?? 'none'
       this.addMessageToLog(`State changed to: ${state} - ${reason}`)
