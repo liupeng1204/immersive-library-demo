@@ -6,11 +6,11 @@
         <form @submit.prevent.stop="initLibrary">
           <input v-model="userName" required type="text" name="userName" placeholder="user name"/>
           <input v-model="userId" required type="text" name="userId" placeholder="user id"/>
-          <button type="submit">initialize</button>
+          <button :disabled="library" type="submit">initialize</button>
         </form>
         <form @submit.prevent.stop="enterRoom">
           <input v-model="roomId" required type="text" name="roomId" placeholder="room id"/>
-          <button :disabled="!library" >enter room</button>
+          <button :disabled="!library || currentState !== 2" >enter room</button>
         </form>
         <form @submit.prevent.stop="changeContent">
           <input v-model="contentData" required type="text" name="contentData" placeholder="content data"/>
@@ -26,8 +26,8 @@
         <a :href="newSessionLink" target="_blank">Open other session</a>
 
         <hr />
-        <p>Room status:</p>
-        <pre class="room_status">{{ roomStatus }}</pre>
+        <p>Library status:</p>
+        <pre>{{ libraryStatus }}</pre>
         <hr />
       </div>
       <div class="events">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ImmersiveLibrary from '../../immersive-monorepo/packages/library'
+import ImmersiveLibrary, { LibraryStateTypes, LibraryStateReasonTypes } from '../../immersive-monorepo/packages/library'
 
 export default {
   data: () => ({
@@ -59,12 +59,12 @@ export default {
     newSessionLink() {
       return `/?roomId=${this.roomId}`
     },
-    roomStatus() {
-      return `current state: ${this.currentState}
-current state reason: ${this.currentStateReason}
+    libraryStatus() {
+      return `state: ${LibraryStateTypes[this.currentState] ?? 'unknown'}
+state reason: ${LibraryStateReasonTypes[this.currentStateReason] ?? 'none'}
 host user id: ${this.currentHostUserId}
-amount of participants: ${this.amountOfParticipants}`
-    }
+participants: ${this.amountOfParticipants}`
+    },
   },
   mounted() {
     const currentUrl = new URL(window.location.href)
@@ -104,6 +104,15 @@ amount of participants: ${this.amountOfParticipants}`
     },
     destroy() {
       this.library.destroy()
+
+      this.library = null
+      this.contentType = ''
+      this.contentData = ''
+      this.eventLog = ''
+      this.currentState = ''
+      this.currentStateReason = ''
+      this.currentHostUserId = ''
+      this.amountOfParticipants = ''
     },
     addMessageToLog(message) {
       this.eventLog += `${message}\n`
@@ -112,10 +121,10 @@ amount of participants: ${this.amountOfParticipants}`
       })
     },
     onUserJoined(user) {
-      this.addMessageToLog(`User joined: ${user.name} ${user.userId}`)
+      this.addMessageToLog(`User joined: ${user.name} ${user.externalUserId}`)
     },
     onUserLeave(user) {
-      this.addMessageToLog(`User left: ${user.name} ${user.userId}`)
+      this.addMessageToLog(`User left: ${user.name} ${user.externalUserId}`)
     },
     onAmountOfParticipants(amountOfParticipants) {
       this.amountOfParticipants = amountOfParticipants
@@ -125,11 +134,11 @@ amount of participants: ${this.amountOfParticipants}`
     },
     onStateChange(state, reason) {
       this.currentState = state
-      this.currentStateReason = reason ?? 'none'
-      this.addMessageToLog(`State changed to: ${state} - ${reason}`)
+      this.currentStateReason = reason
+      this.addMessageToLog(`State changed to: ${state}, ${reason}`)
     },
     onRoomInfoUpdated(roomInfo) {
-      this.addMessageToLog(`Room info updated: ${JSON.stringify(roomInfo, null, '  ')}`)
+      this.addMessageToLog(`Room info updated: ${JSON.stringify(roomInfo, null, ' ')}`)
     },
   }
 }
@@ -159,6 +168,10 @@ $controls-width: 250px
   grid-template-areas: "controls" "logs"
   grid-template-rows: auto 1fr
 
+  pre
+    overflow: auto
+    width: $controls-width
+
   .controls
     display: flex
     flex-direction: column
@@ -170,8 +183,5 @@ $controls-width: 250px
     grid-area: logs
 
     pre
-      overflow-x: auto
-      overflow-y: scroll
-      width: $controls-width
       height: 500px
 </style>
