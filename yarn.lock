@@ -7,19 +7,19 @@
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.18.4.tgz#6774231779dd700e0af29f6ad8d479582d7ce5ef"
   integrity sha512-FDge0dFazETFcxGw/EXzOkN8uJp0PC7Qbm+Pe9T+av2zlBpOgunFHkQPPn+eRuClU73JF+98D531UgayY89tow==
 
-"@superviz/immersive-core@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@superviz/immersive-core/-/immersive-core-0.1.3.tgz#59c6ec1707ad796f957030f80bcf6e0a465dd0c4"
-  integrity sha512-6n+DxkyxWtO9FndgOAYEezOtGFwjr8ZYwPDV5h1XGHy163GyyBtJqzxGFpifj6WX+kxCi5p+faMwea7DsblXnA==
+"@superviz/immersive-core@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@superviz/immersive-core/-/immersive-core-0.2.0.tgz#13c59a350a1206775a6dcb958abb66811954a884"
+  integrity sha512-XD/hg0ary0Sj43Cy6XKPRrxQHYHNz0yYboMyNTHCxEON7lnirmwblpmiqMvPN87XqQM4YTQhCJz3QAvVVm6bDw==
   dependencies:
     debug "^4.3.4"
 
-"@superviz/immersive-library@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@superviz/immersive-library/-/immersive-library-0.1.3.tgz#79ab8195c8f1a87a143bcb9b27c2cd474b71d1c9"
-  integrity sha512-WVekzL1BsHej8EuAijWFNBJRRQi9dvL54kGUw8RO/fq2g1+L0Qv6sV/g1KTLgWuNvrOA/kxrfgMkFGEYZDmB+g==
+"@superviz/immersive-library@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@superviz/immersive-library/-/immersive-library-0.2.0.tgz#0bfd6d192313f77575d9ba26b1e379bf6e6b98cb"
+  integrity sha512-EM+BXI8hTGEQ5+5+f3bQ5J8TUkQL9fBBV7LEAEHwkrHq0ytNnZcIvB+M70Ba+3XvCoEms722Qe6/lg2hPRUwdQ==
   dependencies:
-    "@superviz/immersive-core" "^0.1.3"
+    "@superviz/immersive-core" "^0.2.0"
 
 "@vitejs/plugin-vue@^2.3.3":
   version "2.3.3"

@@ -40,8 +40,9 @@
 </template>
 
 <script>
-import ImmersiveLibrary, { LibraryStateTypes, LibraryStateReasonTypes } from '../../immersive-monorepo/packages/library'
+import ImmersiveLibrary, { LibraryStateTypes, LibraryStateReasonTypes } from '@superviz/immersive-library'
 
+const DEVELOPER_KEY = import.meta.env.VITE_SUPERVIZ_DEVELOPER_KEY
 export default {
   data: () => ({
     library: null,
@@ -77,11 +78,10 @@ participants: ${this.amountOfParticipants}`
   methods: {
     async initLibrary() {
       this.library = await ImmersiveLibrary(
-        'lnt7va99nvbp2wqp5ruev9k0gj9hjw',
+        DEVELOPER_KEY,
         {
           wrapperId: 'immersive-frame',
           language: 'en',
-          debug: true,
           userInfo: {
             externalUserId: this.userId,
             name: this.userName
