@@ -17,7 +17,7 @@ Proof of concept app that uses @superviz/immersive-library.
 Clone the project repository:
 
 ```bash
-git clone git@github.com:SuperViz/immersive-poc.git
+git clone git@github.com:SuperViz/immersive-library-demo.git
 ```
 
 From the project root run `yarn` to install the dependencies:
