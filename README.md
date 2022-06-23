@@ -26,7 +26,8 @@ From the project root run `yarn` to install the dependencies:
 yarn
 ```
 
-It is important to have your developer key as an environment variable, a variable must be set like this: `VITE_SUPERVIZ_DEVELOPER_KEY`=API_KEY_HERE
+To properly use this project, you will need to create a .env file following the example given in .env.example.
+You will also need to set your developer key as the value of VITE_SUPERVIZ_DEVELOPER_KEY environment variable in the file created.
 
 After that, the demo is ready to be used. To run the development environment, from the root run:
 
