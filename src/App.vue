@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import ImmersiveLibrary, { LibraryStateTypes, LibraryStateReasonTypes } from '../../immersive-monorepo/packages/library'
+import ImmersiveLibrary, { LibraryStateTypes, LibraryStateReasonTypes } from '@superviz/immersive-library'
 
 export default {
   data: () => ({
@@ -81,7 +81,6 @@ participants: ${this.amountOfParticipants}`
         {
           wrapperId: 'immersive-frame',
           language: 'en',
-          debug: true,
           userInfo: {
             externalUserId: this.userId,
             name: this.userName
