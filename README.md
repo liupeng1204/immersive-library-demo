@@ -14,11 +14,10 @@ Proof of concept app that uses @superviz/immersive-library.
 
 ## Quick Start
 
-
 Clone the project repository:
 
 ```bash
-git@github.com:SuperViz/immersive-poc.git
+git clone git@github.com:SuperViz/immersive-poc.git
 ```
 
 From the project root run `yarn` to install the dependencies:
@@ -26,6 +25,8 @@ From the project root run `yarn` to install the dependencies:
 ```bash
 yarn
 ```
+
+It is important to have your developer key as an environment variable, a variable must be set like this: `VITE_SUPERVIZ_DEVELOPER_KEY`=API_KEY_HERE
 
 After that, the demo is ready to be used. To run the development environment, from the root run:
 
