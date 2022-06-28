@@ -73,6 +73,7 @@ List of projects that can be used for testing:
 * matteport: `9yaHdtwoXg5`;
 * forge: `urn:adsk.objects:os.object:e8d17563-1a4e-4471-bd72-a0a7e8d719bc/Normal%20neonatal%20heart.fbx`;
 * sketchfab: `7b02c861d6384fb58ac14fcd54d98475`
+* pureweb: ask SuperViz support for a demo project;
 
 ---
 ### Useful links
