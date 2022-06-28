@@ -18,6 +18,7 @@
             <option value="forge">forge</option>
             <option value="matterport">matterport</option>
             <option value="sketchfab">sketchfab</option>
+            <option value="pureweb">pureweb</option>  
           </select>
           <button :disabled="!library || !this.contentType || !this.contentData" >change content</button>
         </form>
