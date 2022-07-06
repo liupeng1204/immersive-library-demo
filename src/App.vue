@@ -23,6 +23,36 @@
           <button :disabled="!library || !this.contentType || !this.contentData" >change content</button>
         </form>
 
+        <form @submit.prevent.stop="changeHost">
+          <select v-model="newHostId" :disabled="!participants.length">
+            <option v-for="participant in participants" :value="participant.externalUserId" :key="participant.externalUserId">
+              {{ participant.name }}
+            </option>
+          </select>
+          <button :disabled="!participants.length"> change host </button>
+        </form>
+
+        <form @submit.prevent.stop="setFollow">
+          <select v-model="followerId" :disabled="!participants.length">
+            <option :value="null"> - </option>
+            <option v-for="participant in participants" :value="participant.externalUserId" :key="participant.externalUserId">
+              {{ participant.name }}
+            </option>
+          </select>
+          <button :disabled="!participants.length"> set follow </button>
+        </form>
+
+        <form @submit.prevent.stop="goToUser">
+           <select v-model="goToUserId" :disabled="!participants.length">
+            <option :value="null"> - </option>
+            <option v-for="participant in participants" :value="participant.externalUserId" :key="participant.externalUserId">
+              {{ participant.name }}
+            </option>
+          </select>
+          <button :disabled="!participants.length"> go to </button>
+        </form>
+
+        <button @click="gather" :disabled="!isHost">gather</button>
         <button @click="destroy" :disabled="!library" class="red">destroy</button>
 
         <a :href="newSessionLink" target="_blank">Open other session</a>
@@ -56,7 +86,13 @@ export default {
     currentState: '',
     currentStateReason: '',
     currentHostUserId: '',
-    amountOfParticipants: ''
+    amountOfParticipants: '',
+
+    participants: [],
+
+    newHostId: '',
+    followerId: '',
+    goToUserId: '',
   }),
   computed: {
     newSessionLink() {
@@ -68,6 +104,9 @@ state reason: ${LibraryStateReasonTypes[this.currentStateReason] ?? 'none'}
 host user id: ${this.currentHostUserId}
 participants: ${this.amountOfParticipants}`
     },
+    isHost() {
+      return this.currentHostUserId === this.userId;
+    }
   },
   mounted() {
     const currentUrl = new URL(window.location.href)
@@ -83,6 +122,7 @@ participants: ${this.amountOfParticipants}`
         {
           wrapperId: 'immersive-frame',
           language: 'en',
+          debug: true,
           userInfo: {
             externalUserId: this.userId,
             name: this.userName
@@ -104,6 +144,18 @@ participants: ${this.amountOfParticipants}`
     changeContent() {
       this.library.changeContent(this.contentType, this.contentData)
     },
+    changeHost() {
+      this.library.changeHost(this.newHostId)
+    },
+    setFollow() {
+      this.library.followUser(this.followerId)
+    },
+    gather() {
+      this.library.gatherAll()
+    },
+    goToUser() {
+      this.library.goToUser(this.goToUserId)
+    },
     destroy() {
       this.library.destroy()
 
@@ -124,9 +176,13 @@ participants: ${this.amountOfParticipants}`
     },
     onUserJoined(user) {
       this.addMessageToLog(`User joined: ${user.name} ${user.externalUserId}`)
+
+      
+      this.participants = this.library.users
     },
     onUserLeave(user) {
       this.addMessageToLog(`User left: ${user.name} ${user.externalUserId}`)
+      this.participants = this.library.users
     },
     onAmountOfParticipants(amountOfParticipants) {
       this.amountOfParticipants = amountOfParticipants
@@ -185,5 +241,5 @@ $controls-width: 250px
     grid-area: logs
 
     pre
-      height: 500px
+      height: 300px
 </style>
