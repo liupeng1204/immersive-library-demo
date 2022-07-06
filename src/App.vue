@@ -44,8 +44,12 @@
 
         <form @submit.prevent.stop="goToUser">
            <select v-model="goToUserId" :disabled="!participants.length">
-            <option :value="null"> - </option>
-            <option v-for="participant in participants" :value="participant.externalUserId" :key="participant.externalUserId">
+            <option 
+              v-for="participant in participants" 
+              v-show="participant.externalUserId !== userId"
+              :value="participant.externalUserId" 
+              :key="participant.externalUserId"
+            >
               {{ participant.name }}
             </option>
           </select>
