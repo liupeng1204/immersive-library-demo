@@ -77,7 +77,8 @@
 <script>
 import ImmersiveLibrary, { LibraryStateTypes, LibraryStateReasonTypes } from '@superviz/immersive-library'
 
-const DEVELOPER_KEY = import.meta.env.VITE_SUPERVIZ_DEVELOPER_KEY
+// const DEVELOPER_KEY = import.meta.env.VITE_SUPERVIZ_DEVELOPER_KEY
+const DEVELOPER_KEY = "cfq8y4zvmr04pkm6m8siqbkbqy059l"
 export default {
   data: () => ({
     library: null,
@@ -131,7 +132,7 @@ participants: ${this.amountOfParticipants}`
             externalUserId: this.userId,
             name: this.userName
           },
-          region: 'us'
+          region: 'cn'
         }
       );
 
@@ -149,6 +150,7 @@ participants: ${this.amountOfParticipants}`
       this.library.changeContent(this.contentType, this.contentData)
     },
     changeHost() {
+      console.log('changeHost:', this.newHostId, typeof this.newHostId)
       this.library.changeHost(this.newHostId)
     },
     setFollow() {
@@ -192,6 +194,7 @@ participants: ${this.amountOfParticipants}`
       this.amountOfParticipants = amountOfParticipants
     },
     onHostChange({ newHostUserId, oldHostUserId }) {
+      console.log('onHostChange:', newHostUserId, oldHostUserId)
       this.currentHostUserId = newHostUserId
     },
     onStateChange(state, reason) {
